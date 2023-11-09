@@ -1,0 +1,25 @@
+extends layout
+block content
+    div(class="container-fluid")
+        h1= title
+    - let results=[{Kite_name:"King",kite_color:"Black",kite_price:20},{Kite_name:"Delta",kite_color:"White",kite_price:55},{Kite_name:"Square",kite_color:"Purple",kite_price:40}]
+        div(class="row")
+            each form,item in results
+                div(class = "col-sm-2 bg-primary" onclick=`buy(${item})`) #{form.Kite_name}              
+                div(class = "col-sm-2 bg-primary" onclick=`buy(${item})`) #{form.kite_color}                
+                div(class = "col-sm-2 bg-primary" onclick=`buy(${item})`) #{form.kite_price}
+                hr
+    
+    br
+    h5= 'buy'
+
+    div(class="container-fluid")
+      each kite,index in results
+        div(class="row", onclick=`buy(${index})`)
+          div(class="col-sm-4") <br>kite #{index}: #{kite.Kite_name} color:#{kite.kite_color} price:#{kite.kite_price}
+
+    script.
+        function buy(itemNo)
+        {
+            alert(`You purchased Item ${itemNo+1}`)
+        }
