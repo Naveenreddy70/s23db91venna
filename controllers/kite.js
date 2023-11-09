@@ -26,3 +26,15 @@ res.send('NOT IMPLEMENTED: kite delete DELETE ' + req.params.id);
 exports.kite_update_put = function(req, res) {
 res.send('NOT IMPLEMENTED: kite update PUT' + req.params.id);
 };
+// VIEWS
+// Handle a show all view
+exports.kite_view_all_Page = async function(req, res) {
+    try{
+    thekites = await kite.find();
+    res.render('kite', { title: 'kite Search Results', results: thekites });
+    }
+    catch(err){
+    res.status(500);
+    res.send(`{"error": ${err}}`);
+    }
+    };

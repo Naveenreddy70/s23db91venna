@@ -2,7 +2,8 @@ extends layout
 block content
     div(class="container-fluid")
         h1= title
-    - let results=[{Kite_name:"King",kite_color:"Black",kite_price:20},{Kite_name:"Delta",kite_color:"White",kite_price:55},{Kite_name:"Square",kite_color:"Purple",kite_price:40}]
+    - let items = results;
+    - let o;
         div(class="row")
             each form,item in results
                 div(class = "col-sm-2 bg-primary" onclick=`buy(${item})`) #{form.Kite_name}              
