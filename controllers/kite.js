@@ -1,8 +1,15 @@
 var kite = require('../models/kite');
 // List of all kites
-exports.kite_list = function(req, res) {
-res.send('NOT IMPLEMENTED: kite list');
-};
+exports.kite_list = async function(req, res) {
+    try{
+    thekites = await kite.find();
+    res.send(thekites);
+    }
+    catch(err){
+    res.status(500);
+    res.send(`{"error": ${err}}`);
+    }
+    };
 // for a specific kite.
 exports.kite_detail = function(req, res) {
 res.send('NOT IMPLEMENTED: kite detail: ' + req.params.id);
