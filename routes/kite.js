@@ -3,7 +3,7 @@ var router = express.Router();
 
 /* GET home page. */
 router.get('/', function(req, res, next) {
-  res.render('kite', { title: 'Search results for kites' });
+  res.render('kite', { title: 'Search results for kite' });
 });
 var express = require('express');
 const kite_controlers= require('../controllers/kite');
