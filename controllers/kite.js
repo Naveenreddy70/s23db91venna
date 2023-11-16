@@ -24,6 +24,36 @@ exports.kite_view_all_Page = async function(req, res) {
     }
     };
 
+    // Handle building the view for updating a costume.
+// query provides the id
+exports.kite_update_Page = async function(req, res) {
+    console.log("update view for item "+req.query.id)
+    try{
+    let result = await kite.findById(req.query.id)
+    res.render('kiteupdate', { title: 'Kites Update', toShow: result });
+    }
+    catch(err){
+    res.status(500)
+    res.send(`{'error': '${err}'}`);
+    }
+    };
+   
+    // Handle a delete one view with id from query
+exports.kite_delete_Page = async function(req, res) {
+    console.log("Delete view for id " + req.query.id)
+    try{
+    result = await kite.findById(req.query.id)
+    res.render('kitedelete', { title: 'Kite Delete', toShow:
+    result });
+    }
+    catch(err){
+    res.status(500)
+    res.send(`{'error': '${err}'}`);
+    }
+    };
+   
+    
+
     // Handle a show one view with id specified by query
 exports.kite_view_one_Page = async function(req, res) {
     console.log("single view for id " + req.query.id)
@@ -50,7 +80,20 @@ exports.kite_delete = async function(req, res) {
     res.send(`{"error": Error deleting ${err}}`);
     }
     };
-    
+
+// Handle building the view for creating a kite.
+// No body, no in path parameter, no query.
+// Does not need to be async
+exports.kite_create_Page = function(req, res) {
+console.log("create view")
+try{
+res.render('kitecreate', { title: 'kite Create'});
+}
+catch(err){
+res.status(500)
+res.send(`{'error': '${err}'}`);
+}
+};
 
        // Handle kite create on POST.
 exports.kite_create_post = async function(req, res) {
@@ -72,10 +115,14 @@ exports.kite_create_post = async function(req, res) {
     res.send(`{"error": ${err}}`);
     }
     };
+
+
+/*    
 // for a specific kite.
 exports.kite_detail = function(req, res) {
 res.send('NOT IMPLEMENTED: kite detail: ' + req.params.id);
 };
+*/
 /*// Handle kite create on POST.
 exports.kite_create_post = function(req, res) {
 res.send('NOT IMPLEMENTED: kite create POST');
@@ -86,11 +133,13 @@ exports.kite_delete = function(req, res) {
 res.send('NOT IMPLEMENTED: kite delete DELETE ' + req.params.id);
 };
 */
+/*
 // Handle kite update form on PUT.
 exports.kite_update_put = function(req, res) {
 res.send('NOT IMPLEMENTED: kite update PUT' + req.params.id);
 };
-//Handle Costume update form on PUT.
+*/
+//Handle kite update form on PUT.
 exports.kite_update_put = async function(req, res) {
 console.log(`update on id ${req.params.id} with body
 ${JSON.stringify(req.body)}`)
@@ -102,7 +151,7 @@ toUpdate.kite_color = req.body.kite_color;
 if(req.body.kite_name) toUpdate.kite_name = req.body.kite_name;
 if(req.body.kite_price) toUpdate.kite_price = req.body.kite_price;
 let result = await toUpdate.save();
-console.log("Sucess " + result)
+console.log("Success " + result)
 res.send(result)
 } catch (err) {
 res.status(500)
@@ -111,7 +160,7 @@ failed`);
 }
 };
 
-// for a specific Costume.
+// for a specific kite.
 exports.kite_detail = async function(req, res) {
 console.log("detail" + req.params.id)
 try {

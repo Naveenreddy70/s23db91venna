@@ -1,0 +1,32 @@
+extends layout
+
+block content
+  h1= title
+  form(id='kiteForm', action="/resource/kite", method="POST")
+    div.form-group
+      label.kiteAttr(for='kite_color') kite_color
+      input#kite_color(type='text', name='kite_color')
+    div.form-group
+      label.kiteAttr(for='kite_name') kite_name
+      input#kite_name(type='text', name='kite_name')
+    div.form-group
+      label.kiteAttr(for='kite_price') kite_price
+      input#kite_price(type='number', name='kite_price')
+    input(type="submit")
+  script.
+    document.forms['kiteForm'].addEventListener('submit', (event) => {
+      event.preventDefault();
+      // TODO do something here to show user that form is being submitted
+      fetch(event.target.action, {
+        method: 'POST',
+        body: new URLSearchParams(new FormData(event.target)) // event.target is the form
+      }).then((resp) => {
+        return resp.text();
+      }).then((body) => {
+        alert("Save succeeded")
+        // TODO handle body
+      }).catch((error) => {
+        // TODO handle error
+        alert("Save failed " + error)
+      });
+    });
