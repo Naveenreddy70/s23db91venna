@@ -1,14 +1,16 @@
 body {
-  padding: 50px;
-  font: 14px "Lucida Grande", Helvetica, Arial, sans-serif;
+  padding: 20px; /* Reduced padding */
+  font: 16px "Segoe UI", Tahoma, Geneva, Verdana, sans-serif; /* Changed font and increased size */
 }
 
 a {
-  color: #00B7FF;
+  color: #FF5733; /* Changed link color to a different shade */
+  text-decoration: none; /* Removed underline */
 }
 
 .kiteAttr {
-  background-color: aquamarine;
-  width: 120px;
-  }
-  
+  background-color: #F4D03F; /* Changed background color of elements with class 'kiteAttr' */
+  width: 150px; /* Increased width */
+  padding: 10px; /* Added padding */
+  margin-bottom: 10px; /* Added margin to separate elements */
+}

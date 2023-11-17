@@ -2,24 +2,28 @@ extends layout
 
 block content
   h1= title
-  - let kiteid = toShow._id
-  - let kite_color = toShow.kite_color
-  - let kite_name = toShow.kite_name
-  - let kite_price = toShow.kite_price
 
-  div
-    div.row
-      div(class='kiteAttr mr-3') Kite ID is:
-      div #{kiteid}
+  if (toShow == null)
+    h2 No instance to delete
+  else
+    - let kiteid = toShow._id
+    - let kite_color = toShow.kite_color
+    - let kite_name = toShow.kite_name
+    - let kite_price = toShow.kite_price
 
-    div.row
-      div(class='kiteAttr mr-3') Kite Type is:
-      div #{kite_color}
+    div
+      div.row
+        div(class='kiteAttr mr-3') Kite ID is:
+        div #{kiteid}
 
-    div.row
-      div(class='kiteAttr mr-3') Kite name is:
-      div #{kite_name}
+      div.row
+        div(class='kiteAttr mr-3') Kite Type is:
+        div #{kite_color}
 
-    div.row
-      div(class='kiteAttr mr-3') Kite price is:
-      div #{kite_price}
+      div.row
+        div(class='kiteAttr mr-3') Kite name is:
+        div #{kite_name}
+
+      div.row
+        div(class='kiteAttr mr-3') Kite price is:
+        div #{kite_price}
