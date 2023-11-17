@@ -1,26 +1,17 @@
 extends layout
 block content
+    h1=title
+    -let kite= [{kite_color:"Black",kite_name:"King",kite_price:20},{kite_color:"White",kite_name:"Delta",kite_price:55},{kite_color:"Purple",kite_name:"Square",kite_price:40}];
     div(class="container-fluid")
-        h1= title
-    - let items = results;
-    - let o;
-        div(class="row")
-            each form,item in results
-                div(class = "col-sm-2 bg-primary" onclick=`buy(${item})`) #{form.Kite_name}              
-                div(class = "col-sm-2 bg-primary" onclick=`buy(${item})`) #{form.kite_color}                
-                div(class = "col-sm-2 bg-primary" onclick=`buy(${item})`) #{form.kite_price}
-                hr
-    
-    br
-    h5= 'buy'
+        div(class="row m-1")
+            each k in results
+                - let destination = `dispatch(\"/kite/update?id=${k._id}\")`
+                div(class="row-sm-2", class="m-1")  color:#{k.kite_color} name:#{k.kite_name} price:#{k.kite_price}
+                    button.btn( class="btn-primary ml-1", onclick= destination) Update
+        script.
+            function dispatch(path){
+                window.location.href=path
+            }   
 
-    div(class="container-fluid")
-      each kite,index in results
-        div(class="row", onclick=`buy(${index})`)
-          div(class="col-sm-4") <br>kite #{index}: #{kite.Kite_name} color:#{kite.kite_color} price:#{kite.kite_price}
 
-    script.
-        function buy(itemNo)
-        {
-            alert(`You purchased Item ${itemNo+1}`)
-        }
+        
