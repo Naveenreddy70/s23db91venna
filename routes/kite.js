@@ -1,5 +1,11 @@
 var express = require('express');
 var router = express.Router();
+const secured = (req, res, next) => {
+  if (req.user){
+  return next();
+  }
+  res.redirect("/login");
+    }
 
 /* GET home page. */
 router.get('/', function(req, res, next) {
@@ -23,3 +29,8 @@ router.get('/update', kite_controlers.kite_update_Page);
 
 /* GET delete kite page */
 router.get('/delete', kite_controlers.kite_delete_Page);
+
+/* GET update costume page */
+router.get('/update', secured, kite_controlers.kite_update_Page);
+
+  
