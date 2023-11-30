@@ -33,4 +33,6 @@ router.get('/delete', kite_controlers.kite_delete_Page);
 /* GET update costume page */
 router.get('/update', secured, kite_controlers.kite_update_Page);
 
+
+
   
