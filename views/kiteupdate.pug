@@ -1,9 +1,8 @@
-extends layout
 
 block content
   h1= title
 
-  if (toShow == null)
+  if toShow == null
     h2 No instance to delete
   else
     - let kiteid = toShow._id
@@ -16,7 +15,7 @@ block content
       div #{kiteid}
 
     - let actionid = "/resource/kite/" + kiteid
-    form(id='kiteForm', action=actionid, method="PUT")
+    form(id='kiteForm', action=actionid, method="POST")
       div.form-group
         label.kiteAttr(for='kite_color') Kite Color
         input#kite_color(type='text', name='kite_color', value=kite_color)
@@ -28,18 +27,25 @@ block content
         input#kite_price(type='number', name='kite_price', value=kite_price)
         input(type="submit")
 
-    script.
-      document.forms['kiteForm'].addEventListener('submit', (event) => {
-        event.preventDefault();
-        // TODO: do something here to show the user that the form is being submitted
-        fetch(event.target.action, {
-          method: 'PUT',
-          body: new URLSearchParams(new FormData(event.target)) // event.target is the form
-        }).then((resp) => {
-          return resp.text(); // or resp.text() or whatever the server sends
-        }).then((body) => {
-          alert("Update succeeded");
-          // TODO: handle body
-        }).catch((error) => {
-          // TODO: handle error
-      
+script.
+  document.forms['kiteForm'].addEventListener('submit', (event) => {
+    event.preventDefault();
+    // TODO: do something here to show the user that the form is being submitted
+    fetch(event.target.action, {
+      method: 'PUT',
+      body: new URLSearchParams(new FormData(event.target)) // event.target is the form
+    }).then((resp) => {
+      if (resp.ok) {
+        alert("Kite Updated Successfully");
+        document.getElementById('kiteForm').reset();
+      } else {
+        alert("Failed to Update Kite");
+      }
+    }).then((body) => {
+      console.log(body);
+      // TODO: handle body
+    }).catch((error) => {
+      // TODO: handle error
+      alert("Update failed " + error);
+    });
+  });
