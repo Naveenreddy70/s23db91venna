@@ -25,18 +25,6 @@ passport.use(new LocalStrategy(
   })
 )
 
-require('dotenv').config();
-const connectionString =
-process.env.MONGO_CON
-mongoose = require('mongoose');
-mongoose.connect(connectionString);
-
-//Get the default connection
-var db = mongoose.connection;
-//Bind connection to error event
-db.on('error', console.error.bind(console, 'MongoDB connectionerror:'));
-db.once("open", function(){console.log("Connection to DB succeeded")});
-
 var indexRouter = require('./routes/index');
 var usersRouter = require('./routes/users');
 var kiteRouter = require('./routes/kite');
@@ -45,6 +33,10 @@ var chooseRouter = require('./routes/choose');
 var kite = require("./models/kite");
 var resourceRouter = require('./routes/resource');
 
+require('dotenv').config();
+const connectionString = process.env.MONGO_CON
+mongoose = require('mongoose');
+mongoose.connect(connectionString);
 
 var app = express();
 
@@ -110,6 +102,7 @@ passport.use(new LocalStrategy(Account.authenticate()));
 passport.serializeUser(Account.serializeUser());
 passport.deserializeUser(Account.deserializeUser());
 
+
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
   next(createError(404));
@@ -130,5 +123,11 @@ app.use(function(err, req, res, next) {
   res.status(err.status || 500);
   res.render('error');
 });
+
+//Get the default connection
+var db = mongoose.connection;
+//Bind connection to error event
+db.on('error', console.error.bind(console, 'MongoDB connectionerror:'));
+db.once("open", function(){console.log("Connection to DB succeeded")});
 
 module.exports = app;
